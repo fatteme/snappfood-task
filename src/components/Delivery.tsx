@@ -6,11 +6,16 @@ export default function Delivery({ restaurant }: { restaurant: any }) {
     [restaurant]
   );
 
+  const deliveryFee = useMemo(
+    () => restaurant.deliveryFee.toLocaleString() + ' تومان',
+    [restaurant]
+  );
+
   return (
     <div className="flex items-center">
-      <div>{deliveryType}</div>
+      <div className="text-slate ml-2">{deliveryType}</div>
 
-      <div className="ml-1">{restaurant.deliveryFee}</div>
+      <div>{deliveryFee}</div>
     </div>
   );
 }
