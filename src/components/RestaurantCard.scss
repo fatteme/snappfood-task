@@ -1,0 +1,13 @@
+.restaurant_card {
+  overflow: hidden;
+
+  &__bg_img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  &__header {
+    height: 134px;
+  }
+}
