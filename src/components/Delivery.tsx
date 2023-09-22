@@ -12,10 +12,10 @@ export default function Delivery({ restaurant }: { restaurant: any }) {
   );
 
   return (
-    <div className="flex items-center">
+    <section className="flex items-center">
       <div className="text-slate ml-2">{deliveryType}</div>
 
       <div>{deliveryFee}</div>
-    </div>
+    </section>
   );
 }

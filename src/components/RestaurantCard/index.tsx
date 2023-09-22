@@ -19,9 +19,9 @@ export default function RestaurantCard({ restaurant }: { restaurant: any }) {
           alt={restaurant.title}
         />
 
-        <div className="restaurant_card__logo shadow rounded-md">
+        <section className="restaurant_card__logo shadow rounded-md">
           <img className="rounded" src={restaurant.logo} alt={restaurant.title} />
-        </div>
+        </section>
       </header>
 
       <section className="flex flex-col p-4 pt-6 ">
@@ -31,7 +31,7 @@ export default function RestaurantCard({ restaurant }: { restaurant: any }) {
           <Score value={restaurant.rate} />
         </div>
 
-        <div className="flex justify-start mb-2 overflow-ellipsis">{descriptionItems}</div>
+        <section className="flex justify-start mb-2 overflow-ellipsis">{descriptionItems}</section>
 
         <Delivery restaurant={restaurant} />
       </section>
