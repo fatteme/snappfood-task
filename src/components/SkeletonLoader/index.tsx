@@ -14,7 +14,7 @@ export default function SkeletonLoader({ isLoading }: SkeletonLoaderProps) {
 
       <div className="flex flex-col p-4">
         <div className="flex items-center justify-between">
-          <h2 className="skeleton_loader__header"></h2>
+          <h2 className="skeleton_loader__header m-0"></h2>
 
           <span className="skeleton_loader__space"></span>
         </div>

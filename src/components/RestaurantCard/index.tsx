@@ -27,14 +27,16 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
         </section>
       </header>
 
-      <section className="flex flex-col p-4 pt-6">
+      <section className=" flex flex-col p-4 pt-6">
         <div className="flex items-center justify-between mb-2">
           <h1 className="m-0 overflow-ellipsis">{restaurant.title}</h1>
 
           <Score value={restaurant.rate} />
         </div>
 
-        <section className="flex justify-start mb-2 overflow-ellipsis">{descriptionItems}</section>
+        <section className="restaurant_card__description flex justify-start mb-2 overflow-ellipsis">
+          {descriptionItems}
+        </section>
 
         <Delivery restaurant={restaurant} />
       </section>
