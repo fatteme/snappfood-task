@@ -6,17 +6,17 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 export default function Score({ value }: ScoreProps) {
   const color = useMemo(() => {
     if (value >= 4.5) {
-      return { bg: '#3f7e0014', text: '#305d02' };
+      return '#305d02';
     } else if (value >= 4) {
-      return { bg: '#5ba82914', text: '#5ba839' };
+      return '#5ba839';
     } else if (value >= 3.5) {
-      return { bg: '#9acd3214', text: '#9acd32' };
+      return '#9acd32';
     } else if (value >= 3) {
-      return { bg: '#cdd61414', text: '#cdd614' };
+      return '#cdd614';
     } else if (value >= 0) {
-      return { bg: '#ffba001', text: '#ffba00' };
+      return '#ffba00';
     }
-    return { bg: '#22a95814', text: '#22a958' };
+    return '#22a958';
   }, [value]);
 
   const Rate = () => {
@@ -35,7 +35,7 @@ export default function Score({ value }: ScoreProps) {
   return (
     <section
       className="restaurant_card__score flex items-center rounded"
-      style={{ backgroundColor: color.bg, color: color.text }}>
+      style={{ backgroundColor: `${color}14`, color }}>
       <Rate />
     </section>
   );
