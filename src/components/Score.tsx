@@ -24,6 +24,7 @@ export default function Score({ value }: { value: number }) {
       return (
         <>
           <span>{value}</span>
+
           <FontAwesomeIcon icon={faStar} size="sm" />
         </>
       );
@@ -34,8 +35,7 @@ export default function Score({ value }: { value: number }) {
   return (
     <section
       className="restaurant_card__score flex items-center rounded"
-      style={{ backgroundColor: color.bg, color: color.text }}
-    >
+      style={{ backgroundColor: color.bg, color: color.text }}>
       <Rate />
     </section>
   );

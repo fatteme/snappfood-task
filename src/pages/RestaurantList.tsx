@@ -20,10 +20,6 @@ export default function RestaurantList() {
     dispatch(getRestaurants({ page, pageSize }) as any);
   }, [page]);
 
-  const getNextBatch = () => {
-    dispatch(nextPage());
-  };
-
   useEffect(() => {
     const items = restaurants.map((restaurant: any) => (
       <RestaurantCard key={restaurant.id} restaurant={restaurant} />
@@ -32,10 +28,12 @@ export default function RestaurantList() {
     setRestaurantItems(items);
   }, [restaurants]);
 
+  const getNextBatch = () => {
+    dispatch(nextPage());
+  };
+
   return (
     <div className="flex flex-col items-center px-4">
-      {restaurants.length}
-
       {restaurantItems}
 
       <InfiniteScroll callback={getNextBatch} />

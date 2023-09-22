@@ -32,7 +32,7 @@ export const restaurantsSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getRestaurants.fulfilled, (state, action) => {
-      const { page, pageSize } = action.payload.pagination;
+      const { page } = action.payload.pagination;
       if (page < state.page) {
         return;
       }
