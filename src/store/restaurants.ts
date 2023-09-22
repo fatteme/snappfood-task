@@ -1,28 +1,39 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { StoreState } from '../store';
 
-import { RestaurantAPI } from '../apis/restaurantAPI';
+import { RestaurantAPI, getRestaurantsPayload } from '../apis/restaurantAPI';
+
+import { Restaurant } from '../types/resturant';
 
 export const getRestaurants = createAsyncThunk(
   'restaurants/getAll',
-  async (pagination: { page: number; pageSize: number }) => {
-    const res = await RestaurantAPI.getAll(pagination);
+  async (params: getRestaurantsPayload) => {
+    const res = await RestaurantAPI.getAll(params);
 
     const restaurants = res.data.finalResult
-      .filter((item: any) => item.type === 'VENDOR')
-      .map((item: any) => item.data);
+      .filter((item) => item.type === 'VENDOR')
+      .map((item) => item.data);
 
-    return { restaurants, pagination };
+    return { restaurants, params };
   }
 );
+
+interface RestaurantState {
+  list: Restaurant[];
+  pageSize: number;
+  page: number;
+}
+
+const initialState: RestaurantState = {
+  list: [],
+  pageSize: 10,
+  page: 1
+};
 
 export const restaurantsSlice = createSlice({
   name: 'restaurants',
 
-  initialState: {
-    list: [] as any[],
-    pageSize: 10,
-    page: 1
-  },
+  initialState,
 
   reducers: {
     nextPage(state) {
@@ -32,8 +43,8 @@ export const restaurantsSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(getRestaurants.fulfilled, (state, action) => {
-      const { page } = action.payload.pagination;
-      if (page < state.page) {
+      const { page } = action.payload.params;
+      if (!page || page < state.page) {
         return;
       }
 
@@ -44,5 +55,9 @@ export const restaurantsSlice = createSlice({
 });
 
 export const { nextPage } = restaurantsSlice.actions;
+
+export const selectPage = (state: StoreState) => state.restaurantsStore.page;
+export const selectPageSize = (state: StoreState) => state.restaurantsStore.pageSize;
+export const selectRestaurants = (state: StoreState) => state.restaurantsStore.list;
 
 export default restaurantsSlice.reducer;

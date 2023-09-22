@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function InfiniteScroll({ callback }: { callback: Function }) {
+export default function InfiniteScroll({ callback }: InfiniteScrollProps) {
   const observerTarget = useRef(null);
 
   useEffect(() => {
@@ -25,4 +25,8 @@ export default function InfiniteScroll({ callback }: { callback: Function }) {
   }, [observerTarget]);
 
   return <div ref={observerTarget}></div>;
+}
+
+interface InfiniteScrollProps {
+  callback: Function;
 }

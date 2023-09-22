@@ -1,6 +1,11 @@
 import { useMemo } from 'react';
 
-export default function Delivery({ restaurant }: { restaurant: any }) {
+import { Restaurant } from '../types/resturant';
+
+interface DeliveryProps {
+  restaurant: Restaurant;
+}
+export default function Delivery({ restaurant }: DeliveryProps) {
   const deliveryType = useMemo(
     () => (restaurant.deliveryGuarantee ? 'پیک فروشنده' : 'ارسال اکسپرس'),
     [restaurant]

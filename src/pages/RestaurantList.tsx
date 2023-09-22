@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from '../store';
-import { getRestaurants, nextPage } from '../store/restaurants';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getRestaurants,
+  nextPage,
+  selectPage,
+  selectPageSize,
+  selectRestaurants
+} from '../store/restaurants';
 
 import RestaurantCard from '../components/RestaurantCard';
 import InfiniteScroll from '../components/InfiniteScroll';
@@ -10,9 +15,9 @@ import InfiniteScroll from '../components/InfiniteScroll';
 export default function RestaurantList() {
   const dispatch = useDispatch();
 
-  const restaurants = useSelector((state: RootState) => state.restaurantsStore.list);
-  const page = useSelector((state: RootState) => state.restaurantsStore.page);
-  const pageSize = useSelector((state: RootState) => state.restaurantsStore.pageSize);
+  const restaurants = useSelector(selectRestaurants);
+  const page = useSelector(selectPage);
+  const pageSize = useSelector(selectPageSize);
 
   const [restaurantItems, setRestaurantItems] = useState<JSX.Element[]>([]);
 
@@ -21,7 +26,7 @@ export default function RestaurantList() {
   }, [page]);
 
   useEffect(() => {
-    const items = restaurants.map((restaurant: any) => (
+    const items = restaurants.map((restaurant) => (
       <RestaurantCard key={restaurant.id} restaurant={restaurant} />
     ));
 

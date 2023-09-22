@@ -1,10 +1,13 @@
 import { useMemo } from 'react';
 
 import Delivery from '../Delivery';
-import './RestaurantCard.scss';
 import Score from '../Score';
 
-export default function RestaurantCard({ restaurant }: { restaurant: any }) {
+import { Restaurant } from '../../types/resturant';
+
+import './RestaurantCard.scss';
+
+export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
   const descriptionItems = useMemo(
     () => restaurant.description.split(',').join('  '),
     [restaurant]
@@ -37,4 +40,8 @@ export default function RestaurantCard({ restaurant }: { restaurant: any }) {
       </section>
     </article>
   );
+}
+
+interface RestaurantCardProps {
+  restaurant: Restaurant;
 }

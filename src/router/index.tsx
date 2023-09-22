@@ -6,9 +6,7 @@ import RestaurantList from '../pages/RestaurantList';
 export const router = createBrowserRouter([
   {
     path: '',
-
     element: <App />,
-
     children: [
       { path: '/', loader: () => redirect('/restaurants') },
 

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
-export default function Score({ value }: { value: number }) {
+export default function Score({ value }: ScoreProps) {
   const color = useMemo(() => {
     if (value >= 4.5) {
       return { bg: '#3f7e0014', text: '#305d02' };
@@ -39,4 +39,8 @@ export default function Score({ value }: { value: number }) {
       <Rate />
     </section>
   );
+}
+
+interface ScoreProps {
+  value: number;
 }
