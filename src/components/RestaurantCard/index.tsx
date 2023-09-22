@@ -27,7 +27,7 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
         </section>
       </header>
 
-      <section className="flex flex-col p-4 pt-6 ">
+      <section className="flex flex-col p-4 pt-6">
         <div className="flex items-center justify-between mb-2">
           <h1 className="m-0 overflow-ellipsis">{restaurant.title}</h1>
 

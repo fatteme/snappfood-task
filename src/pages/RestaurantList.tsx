@@ -4,20 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getRestaurants,
   nextPage,
+  selectIsLoading,
   selectPage,
   selectPageSize,
   selectRestaurants
 } from '../store/restaurants';
 
-import RestaurantCard from '../components/RestaurantCard';
 import InfiniteScroll from '../components/InfiniteScroll';
+import RestaurantCard from '../components/RestaurantCard';
+import SkeletonLoader from '../components/SkeletonLoader';
 
 export default function RestaurantList() {
   const dispatch = useDispatch();
 
-  const restaurants = useSelector(selectRestaurants);
+  const isLoading = useSelector(selectIsLoading);
   const page = useSelector(selectPage);
   const pageSize = useSelector(selectPageSize);
+  const restaurants = useSelector(selectRestaurants);
 
   const [restaurantItems, setRestaurantItems] = useState<JSX.Element[]>([]);
 
@@ -40,6 +43,8 @@ export default function RestaurantList() {
   return (
     <div className="flex flex-col items-center px-4">
       {restaurantItems}
+
+      <SkeletonLoader isLoading={isLoading} />
 
       <InfiniteScroll callback={getNextBatch} />
     </div>
