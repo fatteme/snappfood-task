@@ -1,25 +1,44 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { RestaurantAPI } from '../apis/restaurantAPI';
+import { RootState } from '../store';
+import { getRestaurants, nextPage } from '../store/restaurants';
+
 import RestaurantCard from './RestaurantCard';
+import InfiniteScroll from './InfiniteScroll';
 
 export default function RestaurantList() {
-  const [restaurants, setRestaurants] = useState([]);
+  const dispatch = useDispatch();
+
+  const restaurants = useSelector((state: RootState) => state.restaurantsStore.list);
+  const page = useSelector((state: RootState) => state.restaurantsStore.page);
+  const pageSize = useSelector((state: RootState) => state.restaurantsStore.pageSize);
+
+  const [restaurantItems, setRestaurantItems] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
-    RestaurantAPI.getAll().then((res) => {
-      const restaurants = res.data.finalResult
-        .filter((item: any) => item.type === 'VENDOR')
-        .map((item: any) => item.data);
-      setRestaurants(restaurants);
-    });
-  }, []);
+    dispatch(getRestaurants({ page, pageSize }) as any);
+  }, [page]);
 
-  const restaurantItems = restaurants.map((restaurant: any) => (
-    <section key={restaurant.id}>
-      <RestaurantCard restaurant={restaurant} />
-    </section>
-  ));
+  const getNextBatch = () => {
+    dispatch(nextPage());
+  };
 
-  return <div>{restaurantItems}</div>;
+  useEffect(() => {
+    const items = restaurants.map((restaurant: any) => (
+      <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+    ));
+
+    setRestaurantItems(items);
+  }, [restaurants]);
+
+  return (
+    <div className="flex flex-col items-center px-4">
+      {restaurants.length}
+
+      {restaurantItems}
+
+      <InfiniteScroll callback={getNextBatch} />
+    </div>
+  );
 }

@@ -1,11 +1,11 @@
 import { api } from './axios';
 
 export const RestaurantAPI = {
-  getAll: async function (pagination?: { page: Number; pageSize: Number }) {
+  getAll: async function (params?: { page?: Number; pageSize?: Number }) {
     const response = await api.request({
       url: `/restaurant/vendors-list`,
       method: 'GET',
-      params: { ...pagination, lat: 35.754, long: 51.328 }
+      params: { ...params, lat: 35.774, long: 51.418 }
     });
 
     return response.data;

@@ -1,4 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import { RestaurantAPI } from '../apis/restaurantAPI';
+
+export const getRestaurants = createAsyncThunk(
+  'restaurants/getAll',
+  async (pagination: { page: number; pageSize: number }) => {
+    const res = await RestaurantAPI.getAll(pagination);
+
+    const restaurants = res.data.finalResult
+      .filter((item: any) => item.type === 'VENDOR')
+      .map((item: any) => item.data);
+
+    return { restaurants, pagination };
+  }
+);
 
 export const restaurantsSlice = createSlice({
   name: 'restaurants',
@@ -10,18 +25,24 @@ export const restaurantsSlice = createSlice({
   },
 
   reducers: {
-    onNextPage: (state) => {
+    nextPage(state) {
       state.page++;
-    },
-
-    onChangePageSize: (state, action) => {
-      state.pageSize = action.payload;
-    },
-
-    setRestaurants: (state, action) => {
-      state.list = [...action.payload];
     }
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(getRestaurants.fulfilled, (state, action) => {
+      const { page, pageSize } = action.payload.pagination;
+      if (page < state.page) {
+        return;
+      }
+
+      state.list.push(...action.payload.restaurants);
+      state.page = page;
+    });
   }
 });
 
-export const RestaurantsActions = restaurantsSlice.actions;
+export const { nextPage } = restaurantsSlice.actions;
+
+export default restaurantsSlice.reducer;
