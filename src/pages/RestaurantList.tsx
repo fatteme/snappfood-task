@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { getRestaurants, nextPage } from '../store/restaurants';
 
-import RestaurantCard from './RestaurantCard';
-import InfiniteScroll from './InfiniteScroll';
+import RestaurantCard from '../components/RestaurantCard';
+import InfiniteScroll from '../components/InfiniteScroll';
 
 export default function RestaurantList() {
   const dispatch = useDispatch();

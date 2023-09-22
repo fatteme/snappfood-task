@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
-import Delivery from './Delivery';
+import Delivery from '../Delivery';
 import './RestaurantCard.scss';
-import Score from './Score';
+import Score from '../Score';
 
 export default function RestaurantCard({ restaurant }: { restaurant: any }) {
   const descriptionItems = useMemo(
